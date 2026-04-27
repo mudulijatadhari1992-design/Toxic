@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise For Biswabandita! ✨</title>
+    <style>
+        :root {
+            --bisa-color: #00f2ff; /* Cyan for Biswabandita */
+            --subha-color: #ff007f; /* Pink for Subhalaxmi */
+        }
+
+        body {
+            background-color: #000;
+            margin: 0; padding: 0;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        /* 1. Galaxy Background Particles */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+        /* 2. Main Stage for Animations */
+        #stage {
+            width: 90%; height: 80%;
+            display: flex; justify-content: center; align-items: center;
+            position: relative;
+        }
+
+        /* 3. Animation States */
+        .ani-card {
+            position: absolute; text-align: center;
+            opacity: 0; transform: scale(0.5) translateY(50px);
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            pointer-events: none;
+        }
+
+        .active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+
+        /* Names and Messages */
+        .bisa-name {
+            font-size: 2.5rem; color: var(--bisa-color);
+            text-shadow: 0 0 20px var(--bisa-color);
+            font-weight: bold; margin: 0;
+        }
+
+        .subha-name {
+            font-size: 1.5rem; color: var(--subha-color);
+            text-shadow: 0 0 15px var(--subha-color);
+            margin-top: 10px;
+        }
+
+        .bday-date {
+            font-size: 3rem; background: linear-gradient(to right, #00f2ff, #006aff);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .message { font-size: 1.2rem; line-height: 1.6; margin-top: 15px; max-width: 500px; }
+
+        /* Special Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .floating { animation: float 6s infinite ease-in-out; }
+        
+        .ring {
+            width: 100px; height: 100px; border-radius: 50%;
+            border: 5px solid var(--bisa-color);
+            position: absolute; z-index: -1;
+            box-shadow: 0 0 30px var(--bisa-color);
+            animation: pulse-ring 2s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <canvas id="galaxyCanvas"></canvas>
+
+    <div id="stage">
+        
+        <div class="ani-card active" id="scene1">
+            <h1 class="message">Entering the Multiverse of...</h1>
+            <h2 class="bisa-name">Biswabandita Biswal</h2>
+            <div class="subha-name">- Activated by Subhalaxmi</div>
+            <div class="message">🚀 Scanning Star Dates...</div>
+        </div>
+
+        <div class="ani-card" id="scene2">
+            <h1 class="message">Celestial Alignment Detected! 🪐</h1>
+            <div class="ring"></div>
+            <h2 class="bday-date">4th MAY</h2>
+            <div class="message">A date when stars shine brighter ✨</div>
+        </div>
+
+        <div class="ani-card" id="scene3">
+            <h1 class="message">Friendship Entropy Status:</h1>
+            <div class="bisa-name" style="font-size:2rem; margin:10px 0;">♾️ INFINITE ♾️</div>
+            <div class="subha-name">Subhalaxmi 💖 Biswabandita</div>
+            <div class="message">Error 404: Logic cannot explain this bond 😂🍭</div>
+        </div>
+
+        <div class="ani-card floating" id="scene4">
+            <div class="bisa-name">Cuteness Alert! 🧸</div>
+            <div class="message">Applying Philosophical Patch: Live in the Moment! 🏛️</div>
+            <div style="font-size:3rem; margin-top:20px;">🍕 🍰 🍭 🎈 🪐 🦋</div>
+        </div>
+
+        <div class="ani-card" id="scene5">
+            <h1 class="bisa-name">HAPPIEST BIRTHDAY</h1>
+            <div class="message">To the most amazing Science Geek & Philosophy Explorer!</div>
+            <div class="bday-date" style="font-size:1.5rem; margin:10px 0;">Biswabandita Biswal 🎂✨</div>
+            <div class="subha-name">Love, Subhalaxmi Muduli ❤️</div>
+        </div>
+
+    </div>
+
+    <script>
+        // 1. Galaxy Background Animation (Particles)
+        const canvas = document.getElementById('galaxyCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function initCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 200; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.width,
+                    size: Math.random() * 2 + 1,
+                    speed: Math.random() * 1 + 0.2,
+                    color: i % 10 === 0 ? '#00f2ff' : i % 8 === 0 ? '#ff007f' : '#fff'
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                p.y += p.speed;
+                if (p.y > canvas.height) p.y = 0;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        initCanvas();
+        drawParticles();
+        window.addEventListener('resize', initCanvas);
+
+        // 2. Animation Scene Control (5 Minute Loop)
+        let currentScene = 1;
+        const totalScenes = 5;
+
+        function showNextScene() {
+            const currentCard = document.getElementById(`scene${currentScene}`);
+            currentCard.classList.remove('active');
+            
+            currentScene = (currentScene % totalScenes) + 1;
+            
+            const nextCard = document.getElementById(`scene${currentScene}`);
+            nextCard.classList.add('active');
+
+            // Setting delays to stretch to 5 minutes.
+            // Some scenes longer, some shorter for better rhythm.
+            let delay = 12000; // Default 12 seconds
+            if (currentScene === 2) delay = 15000; // Birthday date
+            if (currentScene === 5) delay = 18000; // Finale
+
+            setTimeout(showNextScene, delay);
+        }
+
+        // Start the loop after 10 seconds
+        setTimeout(showNextScene, 10000);
+
+    </script>
+</body>
+</html>
